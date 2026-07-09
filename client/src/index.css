@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  
+  --color-brand-500: #22C55E;
+  
+  --color-background: #0B0B0B;
+  --color-card: #161616;
+  --color-secondary-card: #1E1E1E;
+  --color-foreground: #FFFFFF;
+  --color-muted: #B5B5B5;
+  --color-border: rgba(255, 255, 255, 0.08);
+  
+  --color-success: #22C55E;
+  --color-warning: #F97316;
+  --color-destructive: #EF4444;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+  
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-brand-500/30;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+.glass {
+  @apply bg-card border border-border backdrop-blur-md rounded-xl shadow-lg;
+}

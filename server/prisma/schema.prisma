@@ -1,0 +1,141 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String      @id @default(uuid())
+  clerkId         String      @unique
+  email           String      @unique
+  firstName       String?
+  lastName        String?
+  
+  // Extended Profile
+  age             Int?
+  country         String?     @default("IN")
+  currency        String?     @default("INR")
+  occupation      String?
+  monthlyIncome   Float?
+  monthlyExpenses Float?
+  
+  riskProfile     String?     // LOW, MEDIUM, HIGH
+  preferredMarket String      @default("US") // US, IN, UK, etc.
+  
+  // Gamification & Status
+  financialLevel  Int         @default(1)
+  role            String      @default("USER") // USER, ADMIN
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model Asset {
+  id          String   @id @default(uuid())
+  userId      String
+  type        String   // STOCK, MUTUAL_FUND, REAL_ESTATE, CASH, GOLD, CRYPTO, OTHER
+  name        String
+  value       Float
+  currency    String   @default("INR")
+  category    String?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Liability {
+  id          String   @id @default(uuid())
+  userId      String
+  type        String   // MORTGAGE, CAR_LOAN, EDUCATION_LOAN, CREDIT_CARD, PERSONAL_LOAN, OTHER
+  name        String
+  value       Float
+  interestRate Float?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Goal {
+  id                  String   @id @default(uuid())
+  userId              String
+  name                String
+  targetAmount        Float
+  currentAmount       Float    @default(0)
+  targetDate          DateTime?
+  monthlyContribution Float?
+  category            String?  // RETIREMENT, HOUSE, CAR, EDUCATION, VACATION
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  userId      String
+  type        String   // INCOME, EXPENSE, INVESTMENT, WITHDRAWAL, LOAN_PAYMENT
+  amount      Float
+  date        DateTime @default(now())
+  description String?
+  category    String?
+  createdAt   DateTime @default(now())
+}
+
+model Document {
+  id          String   @id @default(uuid())
+  userId      String
+  name        String
+  type        String   // PDF, IMAGE
+  url         String   // Local path or cloud URL
+  createdAt   DateTime @default(now())
+}
+
+model Achievement {
+  id          String   @id @default(uuid())
+  userId      String
+  type        String   // FIRST_INVESTMENT, EMERGENCY_FUND, MILLIONAIRE, etc.
+  title       String
+  unlockedAt  DateTime @default(now())
+}
+
+model Portfolio {
+  id              String   @id @default(uuid())
+  userId          String
+  name            String
+  goal            String?
+  investmentAmount Float?
+  monthlySip      Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  allocations     PortfolioAllocation[]
+}
+
+model PortfolioAllocation {
+  id          String   @id @default(uuid())
+  portfolioId String
+  symbol      String   // Stock/ETF symbol (e.g. AAPL, RELIANCE.NS)
+  name        String
+  percentage  Float
+  
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+}
+
+model Watchlist {
+  id          String   @id @default(uuid())
+  userId      String
+  symbol      String
+  name        String
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, symbol])
+}
+
+model ChatHistory {
+  id          String   @id @default(uuid())
+  userId      String
+  role        String   // "user" or "assistant"
+  content     String
+  createdAt   DateTime @default(now())
+}
