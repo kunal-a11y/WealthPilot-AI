@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
-import { LineChart as LineChartIcon, Star, ArrowUpRight, ArrowDownRight, Trash2, ChevronRight } from "lucide-react";
+import { Star, ArrowUpRight, ArrowDownRight, Trash2, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "../lib/utils";
 

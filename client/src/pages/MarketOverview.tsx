@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
-import { TrendingUp, TrendingDown, Activity, Globe2, Coins, Flame, ArrowUpRight, ArrowDownRight, Sparkles } from "lucide-react";
+import { Activity, Globe2, Coins, Flame, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ResponsiveContainer, AreaChart, Area, YAxis } from "recharts";
@@ -24,7 +24,7 @@ export const MarketOverview = () => {
     queryFn: () => fetchWithAuth(`/market/quotes?symbols=${allOverviewSymbols.join(',')}`, getToken),
   });
 
-  const { data: sparklines, isLoading: loadingSparklines } = useQuery({
+  const { data: sparklines } = useQuery({
     queryKey: ["overview-sparklines"],
     queryFn: () => fetchWithAuth(`/market/sparklines?symbols=${allOverviewSymbols.join(',')}`, getToken),
   });

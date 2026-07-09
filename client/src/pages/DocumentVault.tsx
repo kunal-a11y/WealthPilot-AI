@@ -3,7 +3,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
 import { FolderLock, UploadCloud, File, FileText, FileImage, Trash2, Download } from "lucide-react";
-import { cn } from "../lib/utils";
 
 export const DocumentVault = () => {
   const { getToken } = useAuth();

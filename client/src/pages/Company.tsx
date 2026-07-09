@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
 import { AreaChart, Area, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import { ArrowUpRight, ArrowDownRight, Activity, Info, ShieldAlert, Star, Building2, Users, Briefcase, Target, Shield, Clock, BarChart3, AlertTriangle, CheckCircle2, Search } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, Activity, Info, ShieldAlert, Star, Building2, Briefcase, Target, Shield, Clock, BarChart3, AlertTriangle, CheckCircle2, Search } from "lucide-react";
 import { cn } from "../lib/utils";
 
 const TIMEFRAMES = ['1d', '5d', '1mo', '3mo', '6mo', '1y', '2y', '3y', '5y', '10y', 'max'];

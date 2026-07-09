@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUser, SignOutButton } from "@clerk/clerk-react";
-import { User, Shield, Bell, Key, LogOut, LayoutDashboard, Lock } from "lucide-react";
+import { User, Shield, Key, LogOut, LayoutDashboard, Lock } from "lucide-react";
 import { cn } from "../lib/utils";
 import { useDashboardSettings } from "../lib/useSettings";
 

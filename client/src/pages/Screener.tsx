@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
-import { Search, Filter, ArrowUpRight, ArrowDownRight, Globe2, Sparkles, Building2, Coins, TrendingUp, TrendingDown, Star, Activity, Briefcase } from "lucide-react";
+import { Search, Filter, ArrowUpRight, ArrowDownRight, Globe2, Sparkles } from "lucide-react";
 import { cn } from "../lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { ResponsiveContainer, AreaChart, Area, YAxis } from "recharts";
 
 // High-quality geoJSON for the map
-const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 // Massive global ticker list
 const GLOBAL_ASSETS: Record<string, Record<string, string[]>> = {
@@ -67,15 +66,6 @@ const GLOBAL_ASSETS: Record<string, Record<string, string[]>> = {
 
 const REGIONS = Object.keys(GLOBAL_ASSETS);
 
-const REGION_MAP: Record<string, string> = {
-  "United States": "USA",
-  "India": "IND",
-  "United Kingdom": "GBR",
-  "European Union": "FRA", // Representative for click
-  "Canada": "CAN",
-  "Australia": "AUS",
-  "Japan": "JPN"
-};
 
 export function Screener() {
   const { getToken } = useAuth();
@@ -135,15 +125,7 @@ export function Screener() {
     }
   };
 
-  const handleMapClick = (geo: any) => {
-    const id = geo.id; // ISO3 code
-    const mappedRegion = Object.keys(REGION_MAP).find(k => REGION_MAP[k] === id);
-    if (mappedRegion) {
-      setRegion(mappedRegion);
-      setDiscoveredAssets(null);
-      setViewMode("grid");
-    }
-  };
+
 
   return (
     <motion.div 

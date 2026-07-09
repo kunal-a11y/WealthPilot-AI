@@ -4,7 +4,6 @@ import {
   LayoutDashboard, 
   MessageSquareText, 
   Search, 
-  LineChart, 
   TrendingUp, 
   Settings,
   Briefcase,

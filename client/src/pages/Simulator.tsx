@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { SlidersHorizontal, ArrowRight, TrendingUp, AlertCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { SlidersHorizontal, TrendingUp, AlertCircle } from "lucide-react";
 
 export const Simulator = () => {
   const [currentAge, setCurrentAge] = useState(30);
@@ -102,7 +101,7 @@ export const Simulator = () => {
                     contentStyle={{ backgroundColor: '#18181b', borderColor: '#27272a', borderRadius: '8px' }}
                     itemStyle={{ fontWeight: 'bold' }}
                     labelFormatter={(val) => `Age ${val}`}
-                    formatter={(val: number, name: string) => [`₹${val.toLocaleString()}`, name === 'nominal' ? 'Nominal Wealth' : 'Real Wealth']}
+                    formatter={(val: any, name: any) => [`₹${val.toLocaleString()}`, name === 'nominal' ? 'Nominal Wealth' : 'Real Wealth']}
                   />
                   <Area type="monotone" dataKey="nominal" stroke="#71717a" fillOpacity={1} fill="url(#colorNominal)" />
                   <Area type="monotone" dataKey="real" stroke="#10b981" strokeWidth={2} fillOpacity={1} fill="url(#colorReal)" />

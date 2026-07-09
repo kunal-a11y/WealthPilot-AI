@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
-import { TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, Activity, Wallet, ShieldCheck, HeartPulse, Trophy } from "lucide-react";
+import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
+import { TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, Activity, Wallet, HeartPulse, Trophy } from "lucide-react";
 import { cn } from "../lib/utils";
 import { motion } from "framer-motion";
 
@@ -19,7 +19,7 @@ export function Dashboard() {
     queryFn: () => fetchWithAuth("/ai/health-score", getToken),
   });
 
-  const { data: trendingRaw, isLoading: isLoadingTrendingRaw } = useQuery({
+  const { data: trendingRaw } = useQuery({
     queryKey: ["trending"],
     queryFn: () => fetchWithAuth("/market/trending", getToken),
   });
@@ -51,12 +51,12 @@ export function Dashboard() {
     value: h.close
   })) || [];
 
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: 0.1 } }
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };
@@ -145,7 +145,7 @@ export function Dashboard() {
                     <Tooltip 
                       contentStyle={{ backgroundColor: '#18181b', borderColor: '#27272a', borderRadius: '12px' }}
                       itemStyle={{ color: '#10b981', fontWeight: 'bold' }}
-                      formatter={(val: number) => [`₹${val.toLocaleString()}`, 'Index Value']}
+                      formatter={(val: any) => [`₹${val.toLocaleString()}`, 'Index Value']}
                     />
                     <Area type="monotone" dataKey="value" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorValue)" />
                   </AreaChart>

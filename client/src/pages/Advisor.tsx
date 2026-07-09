@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchWithAuth } from "../lib/api";
-import { Send, Bot, User, Sparkles, RefreshCcw } from "lucide-react";
+import { Send, Bot, User, RefreshCcw } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { cn } from "../lib/utils";

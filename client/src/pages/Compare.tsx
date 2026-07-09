@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
-import { Search, X, BarChart2, AlertTriangle, Target, TrendingUp } from "lucide-react";
+import { Search, X, BarChart2 } from "lucide-react";
 import { cn } from "../lib/utils";
 
 export function Compare() {
@@ -46,14 +46,6 @@ export function Compare() {
     setSymbols(symbols.filter(s => s !== sym));
   };
 
-  // Helper for displaying large numbers
-  const formatNum = (num: number | undefined) => {
-    if (!num) return 'N/A';
-    if (num >= 1e12) return `${(num / 1e12).toFixed(2)}T`;
-    if (num >= 1e9) return `${(num / 1e9).toFixed(2)}B`;
-    if (num >= 1e6) return `${(num / 1e6).toFixed(2)}M`;
-    return num.toLocaleString();
-  };
 
   return (
     <div className="p-4 md:p-8 space-y-8 animate-in fade-in duration-500 max-w-7xl mx-auto pb-32">

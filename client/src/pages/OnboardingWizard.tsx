@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
@@ -16,7 +16,7 @@ const steps = [
 export const OnboardingWizard = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const { getToken } = useAuth();
-  const navigate = useNavigate();
+
 
   const [formData, setFormData] = useState({
     firstName: "",

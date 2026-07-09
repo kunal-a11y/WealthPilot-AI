@@ -13,12 +13,12 @@ export const WealthManager = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState({ type: "STOCK", name: "", value: "", currency: "INR", interestRate: "" });
 
-  const { data: assets = [], isLoading: loadingAssets } = useQuery({
+  const { data: assets = [] } = useQuery({
     queryKey: ["assets"],
     queryFn: () => fetchWithAuth("/finance/assets", getToken),
   });
 
-  const { data: liabilities = [], isLoading: loadingLiabilities } = useQuery({
+  const { data: liabilities = [] } = useQuery({
     queryKey: ["liabilities"],
     queryFn: () => fetchWithAuth("/finance/liabilities", getToken),
   });

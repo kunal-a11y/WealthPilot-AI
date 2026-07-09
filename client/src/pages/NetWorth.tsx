@@ -9,7 +9,7 @@ type Item = {
   type: 'asset' | 'liability';
 };
 
-const COLORS = ['#22C55E', '#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B'];
+
 
 export function NetWorth() {
   const [items, setItems] = useState<Item[]>([
@@ -160,7 +160,7 @@ export function NetWorth() {
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#161616', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }}
                     itemStyle={{ color: '#fff', fontWeight: 'bold' }}
-                    formatter={(value: number) => `₹${value.toLocaleString()}`}
+                    formatter={(value: any) => `₹${value.toLocaleString()}`}
                   />
                 </PieChart>
               </ResponsiveContainer>

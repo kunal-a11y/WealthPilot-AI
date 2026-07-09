@@ -3,9 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { Briefcase, TrendingUp, ArrowRight, RefreshCcw, CheckCircle2, ShieldAlert, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
-import { cn } from "../lib/utils";
+import { Briefcase, ShieldAlert, Sparkles } from "lucide-react";
 import { CurrencyInput } from "../components/ui/CurrencyInput";
 import { useNotifications } from "../lib/NotificationContext";
 
@@ -28,7 +26,7 @@ export function PortfolioBuilder() {
       method: "POST",
       body: JSON.stringify(data)
     }),
-    onSuccess: (data) => {
+    onSuccess: () => {
       addNotification({
         type: 'success',
         title: 'Portfolio Generated',
@@ -211,14 +209,14 @@ export function PortfolioBuilder() {
                           dataKey="percentage"
                           stroke="none"
                         >
-                          {result.allocations?.map((entry: any, index: number) => (
+                          {result.allocations?.map((_entry: any, index: number) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
                         <Tooltip 
                           contentStyle={{ backgroundColor: '#161616', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }}
                           itemStyle={{ color: '#fff', fontWeight: 'bold' }}
-                          formatter={(value: number) => `${value}%`}
+                          formatter={(value: any) => `${value}%`}
                         />
                       </PieChart>
                     </ResponsiveContainer>

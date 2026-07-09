@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
 import { fetchWithAuth } from "../lib/api";
-import { Receipt, Plus, ArrowUpRight, ArrowDownRight, RefreshCcw, Building, Trash2 } from "lucide-react";
+import { Plus, ArrowUpRight, ArrowDownRight, RefreshCcw, Building } from "lucide-react";
 import { motion } from "framer-motion";
-import { cn } from "../lib/utils";
 import { CurrencyInput } from "../components/ui/CurrencyInput";
 
 export const TransactionLedger = () => {
