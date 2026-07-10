@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@clerk/clerk-react";
-import { fetchWithAuth } from "../lib/api";
+import { fetchWithAuth, API_URL } from "../lib/api";
 import { FolderLock, UploadCloud, File, FileText, FileImage, Trash2, Download } from "lucide-react";
 
 export const DocumentVault = () => {
@@ -26,7 +26,7 @@ export const DocumentVault = () => {
       formData.append("name", file.name);
       formData.append("type", getFileType(file.name));
 
-      const res = await fetch("/api/documents/upload", {
+      const res = await fetch(`${API_URL}/documents/upload`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
@@ -118,7 +118,7 @@ export const DocumentVault = () => {
             <div className="flex justify-between items-end mt-4">
               <p className="text-xs text-zinc-500">{new Date(doc.createdAt).toLocaleDateString()}</p>
               <a 
-                href={`/api${doc.url}`} 
+                href={`${API_URL.replace(/\/api$/, '')}${doc.url}`} 
                 target="_blank" 
                 rel="noreferrer"
                 className="text-emerald-500 hover:text-emerald-400 p-1 bg-emerald-500/10 rounded"

@@ -1,4 +1,8 @@
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+let _baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+if (_baseUrl.endsWith('/')) _baseUrl = _baseUrl.slice(0, -1);
+if (!_baseUrl.endsWith('/api')) _baseUrl += '/api';
+
+export const API_URL = _baseUrl;
 
 export async function fetchWithAuth(
   endpoint: string, 
@@ -16,7 +20,9 @@ export async function fetchWithAuth(
     headers.set('Content-Type', 'application/json');
   }
 
-  const response = await fetch(`${API_URL}${endpoint}`, {
+  const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+
+  const response = await fetch(`${API_URL}${normalizedEndpoint}`, {
     ...options,
     headers,
   });
