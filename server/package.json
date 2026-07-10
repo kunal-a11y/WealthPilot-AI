@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "start": "tsx src/index.ts",
+    "start": "prisma generate && prisma db push --accept-data-loss && tsx src/index.ts",
     "build": "prisma generate && prisma db push",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
