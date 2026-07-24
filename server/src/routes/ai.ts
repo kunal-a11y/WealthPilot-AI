@@ -7,14 +7,47 @@ import YahooFinance from 'yahoo-finance2';
 const yahooFinance = new YahooFinance();
 const router = Router();
 
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY,
-  defaultHeaders: {
-    "HTTP-Referer": "http://localhost:5173",
-    "X-Title": "WealthPilot AI",
+let currentKeyIndex = 0;
+
+const openai = {
+  chat: {
+    completions: {
+      create: async (options: any) => {
+        const keysStr = process.env.OPENROUTER_API_KEYS || process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY || "";
+        const keys = keysStr.split(',').map(k => k.trim()).filter(k => k.length > 0);
+        
+        if (keys.length === 0) {
+          throw new Error('OpenAI API keys not configured.');
+        }
+
+        let lastError;
+        for (let i = 0; i < keys.length; i++) {
+          const key = keys[(currentKeyIndex + i) % keys.length];
+          const client = new OpenAI({
+            baseURL: "https://openrouter.ai/api/v1",
+            apiKey: key,
+            defaultHeaders: {
+              "HTTP-Referer": "http://localhost:5173",
+              "X-Title": "WealthPilot AI",
+            }
+          });
+
+          try {
+            const response = await client.chat.completions.create(options);
+            // Shift to the next key for the next request (round-robin)
+            currentKeyIndex = (currentKeyIndex + i + 1) % keys.length;
+            return response;
+          } catch (error: any) {
+            console.warn(`API key starting with ${key.substring(0, 10)} failed. Shifting to next key... Error: ${error.message}`);
+            lastError = error;
+          }
+        }
+        
+        throw lastError;
+      }
+    }
   }
-});
+};
 
 // POST /api/ai/chat
 router.post('/chat', requireAuth(), async (req, res) => {
