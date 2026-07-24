@@ -189,7 +189,9 @@ router.post('/analyze-company', requireAuth(), async (req, res) => {
       response_format: { type: "json_object" }
     });
 
-    const result = JSON.parse(completion.choices[0]?.message?.content || '{}');
+    let content = completion.choices[0]?.message?.content || '{}';
+    content = content.replace(/```json/gi, '').replace(/```/g, '').trim();
+    const result = JSON.parse(content);
     res.json(result);
   } catch (error: any) {
     console.error('Error in AI Analysis:', error);
@@ -230,7 +232,9 @@ router.post('/build-portfolio', requireAuth(), async (req, res) => {
       response_format: { type: "json_object" }
     });
 
-    const result = JSON.parse(completion.choices[0]?.message?.content || '{}');
+    let content = completion.choices[0]?.message?.content || '{}';
+    content = content.replace(/```json/gi, '').replace(/```/g, '').trim();
+    const result = JSON.parse(content);
 
     // Fetch real market data for the recommended symbols
     if (result.allocations && Array.isArray(result.allocations)) {
@@ -291,7 +295,9 @@ router.get('/health-score', requireAuth(), async (req, res) => {
       response_format: { type: "json_object" }
     });
 
-    res.json(JSON.parse(completion.choices[0]?.message?.content || '{}'));
+    let content = completion.choices[0]?.message?.content || '{}';
+    content = content.replace(/```json/gi, '').replace(/```/g, '').trim();
+    res.json(JSON.parse(content));
   } catch (error) {
     res.status(500).json({ error: 'Failed to generate health score' });
   }
